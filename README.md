@@ -42,6 +42,11 @@ python3 cli.py -u "http://xxx.xxx.xxx.xxx" -r pocs/poc.py --shell --lhost "xxx.x
 ```
 ![](image/image-5.png)
 
+```
+无回显 Dnslog测试
+```
+![](image/image-6.png)
+
 ## 最后
 ```
 别忘了Github下载完给个小星星⭐

